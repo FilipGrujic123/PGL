@@ -50,7 +50,12 @@ class Entity():
             self.pos[0] += self.speed[0] * dt
             self.pos[1] += self.speed[1] * dt
 
-            self.apply_force(0, get_gravity() * self.mass, dt)
+            self.apply_force(0, Physics.get_gravity() * self.mass, dt)
+
+            if not self.speed[0] == 0:
+                self.speed[0] -= (self.speed[0] / abs(self.speed[0])) * FRICTION * dt
+            if not self.speed[1] == 0:
+                self.speed[1] -= (self.speed[1] / abs(self.speed[1])) * FRICTION * dt
 
             # Drawing
             if self.type == LINE_TYPE:
