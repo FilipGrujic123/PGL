@@ -1,5 +1,8 @@
-g = 2500
-FRICTION = 1000
+DEFAULT_G = 2500
+g = DEFAULT_G
+
+DEFAULT_FRICTION = 1000
+FRICTION = DEFAULT_FRICTION
 
 class Physics:
     def get_friction():
