@@ -1,6 +1,6 @@
 import pygame
 from math import *
-from physics import *
+from pgl.physics import *
 
 LINE_TYPE = 0
 CIRCLE_TYPE = 1

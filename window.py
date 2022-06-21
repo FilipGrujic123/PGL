@@ -1,6 +1,7 @@
 from abc import abstractclassmethod
 import pygame
-from entity import *
+from pgl.entity import *
+import os 
 
 def draw_regular_polygon(surface, color, vertex_count, radius, position, width=0):
     n, r = vertex_count, radius
@@ -11,7 +12,7 @@ def draw_regular_polygon(surface, color, vertex_count, radius, position, width=0
     ], width)
 
 class Window:
-    def __init__(self, dimensions, title, icon=pygame.image.load('icon.png'), flags=0, depth=0, display=0, vsync=0):
+    def __init__(self, dimensions, title, icon=pygame.image.load(f'{os.path.dirname(os.path.realpath(__file__))}/icon.png'), flags=0, depth=0, display=0, vsync=0):
         self.win = pygame.display.set_mode(dimensions, flags, depth, display, vsync)
         pygame.display.set_caption(title)
         pygame.display.set_icon(icon)
@@ -30,7 +31,12 @@ class Window:
         if type == HEXAGON_TYPE:
             draw_regular_polygon(self.win, entity.color, 6, entity.scale, entity.pos, entity.thickness)
         if type == IMAGE_TYPE:
-            self.win.blit(pygame.transform.rotate(pygame.transform.scale(entity.sprite, entity.scale), entity.rot), entity.pos)
+            # rotated_image = pygame.transform.rotate(pygame.transform.scale(entity.sprite, entity.scale), entity.rot)
+            # new_rect = rotated_image.get_rect(center = entity.sprite.get_rect(topleft=).center)
+            # self.win.blit(rotated_image, new_rect)  
+            rotated_image = pygame.transform.rotate(pygame.transform.scale(entity.sprite, entity.scale), entity.rot)
+            new_rect = rotated_image.get_rect(center = entity.sprite.get_rect(center = (entity.pos[0], entity.pos[1])).center)
+            self.win.blit(rotated_image, new_rect)
         
     def fill(self, color):
         self.win.fill(color)
