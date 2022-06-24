@@ -31,10 +31,7 @@ class Window:
         if type == HEXAGON_TYPE:
             draw_regular_polygon(self.win, entity.color, 6, entity.scale, entity.pos, entity.thickness)
         if type == IMAGE_TYPE:
-            # rotated_image = pygame.transform.rotate(pygame.transform.scale(entity.sprite, entity.scale), entity.rot)
-            # new_rect = rotated_image.get_rect(center = entity.sprite.get_rect(topleft=).center)
-            # self.win.blit(rotated_image, new_rect)  
-            rotated_image = pygame.transform.rotate(pygame.transform.scale(entity.sprite, entity.scale), entity.rot)
+            rotated_image = pygame.image.flip(pygame.transform.rotate(pygame.transform.scale(entity.sprite, entity.scale), entity.rot), (entity.rotX, entity.rotY))
             new_rect = rotated_image.get_rect(center = entity.sprite.get_rect(center = (entity.pos[0], entity.pos[1])).center)
             self.win.blit(rotated_image, new_rect)
         

@@ -1,3 +1,4 @@
+from copyreg import remove_extension
 import pygame
 from math import *
 from pgl.physics import *
@@ -11,7 +12,7 @@ HEXAGON_TYPE = 5
 IMAGE_TYPE = 6
 
 class Entity():
-    def __init__(self, type, pos, scale, color=(255, 255, 255), thickness=0, sprite=None, rot=0, mass=1):
+    def __init__(self, type, pos, scale, color=(255, 255, 255), thickness=0, sprite=None, rot=0, mass=1, rotX=False, rotY=False):
         self.type = type
         self.pos = pos
         self.sprite = sprite
@@ -25,10 +26,16 @@ class Entity():
         self.thickness = thickness
         self.rot = rot
         self.mass = mass
+        self.rotX = rotX,
+        self.rotY = rotY
     
     def apply_force(self, forceX, forceY, dt):
         self.acceleration[0] += forceX / self.mass * dt
         self.acceleration[1] += forceY / self.mass * dt
+    
+    def flip(self, flipX, flipY):
+        self.rotX = flipX
+        self.rotY = flipY
 
     def main(self, win, dt):
         if self.enabled:
